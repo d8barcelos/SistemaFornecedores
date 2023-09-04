@@ -10,6 +10,7 @@ namespace SistemaFornecedores.Context
         }
 
         public DbSet<FornecedorModel>Fornecedores { get; set; }
+       
     }
 }
 

@@ -1,4 +1,6 @@
-﻿@{
+﻿@model FornecedorModel
+
+@{
     ViewData["Title"] = "Cadastro de Fornecedor";
 }
 
@@ -84,18 +86,20 @@
     <h1 class="display-4">Cadastrar Fornecedor</h1>
 </div>
 
-<form>
+<form asp-controller="Fornecedor" asp-action="Criar" method="post">
     <div class="form-group">
-        <label for="exampleInputEmail1">Nome</label>
-        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Nome">
+        <label for="exampleInputName">Nome</label>
+        <input type="text" class="form-control" asp-for="Name" id="exampleInputName" placeholder="Nome">
+        @Html.ValidationMessageFor(x => x.Name)
     </div>
     <div class="form-group">
-        <label for="exampleInputPassword1">CNPJ</label>
-        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="CNPJ">
+        <label for="inputCNPJ">CNPJ</label>
+        <input type="text" asp-for="CNPJ" class="form-control" id="inputCNPJ" placeholder="CNPJ">
+        @Html.ValidationMessageFor(x => x.CNPJ)
     </div>
     <div class="form-group">
         <label for="exampleFormControlSelect1">Especialidade</label>
-        <select class="form-control" id="exampleFormControlSelect1">
+        <select asp-for="Especialidade" class="form-control" id="exampleFormControlSelect1">
             <option>Comércio</option>
             <option>Serviço</option>
             <option>Indústria</option>
@@ -104,31 +108,33 @@
     <div class="form-group">
         <label for="cep">
             CEP:
-            <input name="cep" type="text" id="cep" value="" maxlength="9" class="form-control" placeholder="CEP" />
+            <input name="cep" asp-for="CEP" type="text" id="cep" value="" maxlength="9" class="form-control" placeholder="CEP" />
+            @Html.ValidationMessageFor(x => x.CEP)
         </label>
     </div>
+
     <div class="form-group">
         <label for="rua">
             Rua:
-            <input name="rua" type="text" id="rua" placeholder="Rua" class="form-control" />
+            <input asp-for="Rua" name="rua" type="text" id="rua" placeholder="Rua" class="form-control" />
         </label>
     </div>
     <div class="form-group">
         <label for="bairro">
             Bairro:
-            <input name="bairro" type="text" placeholder="Bairro" id="bairro" class="form-control" />
+            <input asp-for="Bairro" name="bairro" type="text" placeholder="Bairro" id="bairro" class="form-control" />
         </label>
     </div>
     <div class="form-group">
         <label for="cidade">
             Cidade:
-            <input name="cidade" type="text" placeholder="Cidade" id="cidade" class="form-control" />
+            <input asp-for="Cidade" name="cidade" type="text" placeholder="Cidade" id="cidade" class="form-control" />
         </label>
     </div>
     <div class="form-group">
         <label for="uf">
             Estado:
-            <input placeholder="UF" name="uf" type="text" id="uf" class="form-control" />
+            <input asp-for="UF" placeholder="UF" name="uf" type="text" id="uf" class="form-control" />
         </label>
     </div>
 

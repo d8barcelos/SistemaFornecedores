@@ -13,7 +13,8 @@ namespace SistemaFornecedores.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            List<FornecedorModel> fornecedores = _fornecedorRepository.GetAll();
+            return View(fornecedores);
         }
 
         public IActionResult Criar()
@@ -21,20 +22,59 @@ namespace SistemaFornecedores.Controllers
             return View();
         }
 
-        public IActionResult Editar()
+        public IActionResult Editar(int id)
         {
-            return View();
+
+            FornecedorModel fornecedor = _fornecedorRepository.ListarPorId(id);
+
+            if (fornecedor == null)
+            {
+                return NotFound("Fornecedor não encontrado.");
+            }
+
+            return View(fornecedor);
         }
 
-        public IActionResult ApagarConfirmacao()
+
+        public IActionResult ApagarConfirmacao(int id)
         {
-            return View();
+            FornecedorModel fornecedor = _fornecedorRepository.ListarPorId(id);
+
+            if (fornecedor == null)
+            {
+                return NotFound();
+            }
+
+            return View(fornecedor);
         }
+
 
         [HttpPost]
         public IActionResult Criar(FornecedorModel fornecedor)
         {
-            _fornecedorRepository.Adicionar(fornecedor);
+            if (ModelState.IsValid)
+            {
+                _fornecedorRepository.Adicionar(fornecedor);
+                return RedirectToAction("Index");
+            }
+            return View(fornecedor);
+        }
+
+        [HttpPost]
+        public IActionResult Alterar(FornecedorModel fornecedor)
+        {
+            if (ModelState.IsValid)
+            {
+                _fornecedorRepository.Atualizar(fornecedor);
+                return RedirectToAction("Index");
+            }
+            return View("Editar", fornecedor);
+        }
+
+        [HttpGet]
+        public IActionResult Deletar(int id)
+        {
+            _fornecedorRepository.Deletar(id);
             return RedirectToAction("Index");
         }
     }

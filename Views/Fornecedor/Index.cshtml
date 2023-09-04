@@ -1,4 +1,5 @@
-﻿@{
+﻿@model List<FornecedorModel>
+@{
     ViewData["Title"] = "Listagem de fornecedores";
 }
 
@@ -8,6 +9,17 @@
         <a class="btn btn-primary" role="button" asp-controller="Fornecedor" asp-action="Criar">Adicionar novo fornecedor</a>
     </div>
     <br />
+
+    <div class="alert alert-success" role="alert">
+        <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">X</button>
+        This is a success alert—check it out!
+    </div>
+
+    <div class="alert alert-danger" role="alert">
+        <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">X</button>
+        This is a danger alert—check it out!
+    </div>
+
 <h1 class="display-4">Listagem de fornecedores</h1>
 
 <table class="table">
@@ -18,45 +30,30 @@
             <th scope="col">CNPJ</th>
             <th scope="col">Especialidade</th>
             <th scope="col">CEP</th>
+            <th scope="col">Endereço</th>
             <th scope="col">Actions</th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>mdo</td>
-            <td>mdo</td>
-            <td>
-                <a role="button" class="btn btn-primary" asp-controller="Fornecedor" asp-action="Editar">Editar</a>
-                <a role="button" class="btn btn-danger" asp-controller="Fornecedor" asp-action="ApagarConfirmacao">Deletar</a>
-            </td>
-            
-        </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>at</td>
-            <td>mdo</td>
-            <td>
-                <a role="button" class="btn btn-primary">Editar</a>
-                <a role="button" class="btn btn-danger">Deletar</a>
-            </td>
-        </tr>
-        <tr>
-            <th scope="row">3</th>
-            <td>Larry the Bird</td>
-            <td>twitter</td>
-            <td>twitter</td>
-            <td>mdo</td>
-            <td>
-                <a role="button" class="btn btn-primary">Editar</a>
-                <a role="button" class="btn btn-danger">Deletar</a>
-            </td>
-        </tr>
-    </tbody>
+            @if(Model != null && Model.Any())
+            {
+                foreach (var fornecedor in Model)
+                {
+                    <tr>
+                        <th scope="row">@fornecedor.Id</th>
+                        <td>@fornecedor.Name</td>
+                        <td>@fornecedor.CNPJ</td>
+                        <td>@fornecedor.Especialidade</td>
+                        <td>@fornecedor.CEP</td>
+                        <td>@fornecedor.Endereco</td>
+                        <td>
+                            <a role="button" class="btn btn-primary" asp-controller="Fornecedor" asp-action="Editar" asp-route-id="@fornecedor.Id">Editar</a>
+                            <a role="button" class="btn btn-danger" asp-controller="Fornecedor" asp-action="ApagarConfirmacao" asp-route-id="@fornecedor.Id">Deletar</a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
 </table>
 
 </div>
