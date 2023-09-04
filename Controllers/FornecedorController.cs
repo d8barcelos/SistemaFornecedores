@@ -52,30 +52,66 @@ namespace SistemaFornecedores.Controllers
         [HttpPost]
         public IActionResult Criar(FornecedorModel fornecedor)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _fornecedorRepository.Adicionar(fornecedor);
+                if (ModelState.IsValid)
+                {
+                    _fornecedorRepository.Adicionar(fornecedor);
+                    TempData["MensagemSucesso"] = "Fornecedor cadastrado com sucesso!";
+                    return RedirectToAction("Index");
+                }
+                return View(fornecedor);
+            }
+            catch (System.Exception error)
+            {
+                TempData["MensagemErro"] = $"Não foi possível cadasrar o fornecedor, detalhe do erro: {error.Message}";
                 return RedirectToAction("Index");
             }
-            return View(fornecedor);
         }
 
         [HttpPost]
         public IActionResult Alterar(FornecedorModel fornecedor)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _fornecedorRepository.Atualizar(fornecedor);
+                if (ModelState.IsValid)
+                {
+                    _fornecedorRepository.Atualizar(fornecedor);
+                    TempData["MensagemSucesso"] = "Fornecedor alterado com sucesso!";
+                    return RedirectToAction("Index");
+                }
+                return View("Editar", fornecedor);
+            }
+            catch (System.Exception error)
+            {
+                TempData["MensagemErro"] = $"Não foi possível alterar o fornecedor, detalhe do erro: {error.Message}";
                 return RedirectToAction("Index");
             }
-            return View("Editar", fornecedor);
         }
 
         [HttpGet]
         public IActionResult Deletar(int id)
         {
-            _fornecedorRepository.Deletar(id);
-            return RedirectToAction("Index");
+            try
+            {
+                bool apagado = _fornecedorRepository.Deletar(id);
+
+                if (apagado)
+                {
+                    TempData["MensagemSucesso"] = "Fornecedor apagado com sucesso!";
+                }
+                else
+                {
+                    TempData["MensagemErro"] = "Não foi possível apagar o fornecedor";
+                }
+
+                return RedirectToAction("Index");
+            }
+            catch (System.Exception error)
+            {
+                TempData["MensagemErro"] = $"Não foi possível apagar o fornecedor, mais detalhes do erro: {error.Message}";
+                return RedirectToAction("Index");
+            }
         }
     }
 }
