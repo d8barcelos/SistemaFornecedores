@@ -1,6 +1,6 @@
 # Sistema de Gerenciamento de Fornecedores
 
-![Captura de tela](screenshot.png)
+![Captura de tela](screenshot.PNG)
 
 Este é um projeto de aplicação web desenvolvida em ASP.NET Core MVC que visa simplificar o gerenciamento de informações de fornecedores.
 
